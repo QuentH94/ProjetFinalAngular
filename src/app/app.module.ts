@@ -22,7 +22,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     AppComponent,
     RegisterComponent, 
     LoginComponent, 
-    HomeComponent, NavbarComponent,
+    HomeComponent, 
+    NavbarComponent,
   
     
    
