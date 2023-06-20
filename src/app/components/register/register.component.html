@@ -1,0 +1,92 @@
+
+
+<div class="form-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="form-container">
+                    <h3 class="title">Register</h3>
+                    <form class="form-horizontal" [formGroup]="form" (ngSubmit)="Register()">
+                        <div class="form-group">
+                            <label>Pdp</label>
+                            <input type="text" class="form-control" placeholder="Pdp" formControlName="pdp">
+                        </div>
+                        <div class="form-group">
+                            <label>Nom</label>
+                            <input type="text" class="form-control" placeholder="Nom" formControlName="nom">
+                        </div>
+                        <div class="form-group">
+                            <label>Prénom</label>
+                            <input type="text" class="form-control" placeholder="Prenom" formControlName="prenom">
+                        </div>
+                        <div class="form-group">
+                            <label>Pseudo</label>
+                            <input type="text" class="form-control" placeholder="Pseudo" formControlName="pseudo">
+                            <ng-container *ngIf="form.controls['pseudo'].touched">
+                            <h5 *ngIf="form.controls['pseudo'].errors">
+                                {{ form.controls['pseudo'].errors['name'] }}
+                            </h5>
+                            </ng-container>
+                        </div>
+            
+                        <div class="form-group">
+                            <label>Email :</label>
+                            <input type="email" formControlName="email" class="form-control"  placeholder="Email">
+                            <ng-container *ngIf="form.controls['email'].touched">
+                            <h5 *ngIf="form.controls['email'].errors">
+                                {{ form.controls['email'].errors['name'] }}
+                            </h5>
+                            </ng-container>
+                        </div>
+                        <div class="form-group">
+                            <label>Mdp</label>
+                            <input type="password" class="form-control" placeholder="Mdp" formControlName="mdp">
+                        </div>
+                        <div class="form-group">
+                            <label>Mdp Confirmation :</label>
+                            <input type="password" formControlName="mdpConfirmation" class="form-control"  placeholder="Mdp Confirmation">
+                            <ng-container *ngIf="form.controls['mdpConfirmation'].touched">
+                                <h5 *ngIf="form.errors">
+                                    {{ form.errors['twoPasswordCheck'] }}
+                                </h5>
+                            </ng-container>
+                        </div>
+                        <button [disabled]="form.invalid" class="btn signup">Create Account</button>
+                    </form>
+                    <h6>Already have an account? Click here to <a href="/Login">Login</a></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <form [formGroup]="form" (ngSubmit)="Register()">
+    <label>Pdp :</label>
+    <input type="text" formControlName="pdp">
+    <label>Nom :</label>
+    <input type="text" formControlName="nom">
+    <label>Prenom :</label>
+    <input type="text" formControlName="prenom">
+    <label>Pseudo :</label>
+    <input type="text" formControlName="pseudo">
+    <label>Email :</label>
+    <input type="email" formControlName="email">
+    <ng-container *ngIf="form.controls['email'].touched">
+        <p *ngIf="form.controls['email'].errors">
+            {{ form.controls['email'].errors['name'] }}
+        </p>
+    </ng-container>
+    <label>Mdp :</label>
+    <input type="password" formControlName="mdp">
+    <label>Mdp Password :</label>
+    <input type="password" formControlName="mdpConfirmation">
+    <ng-container *ngIf="form.controls['mdpConfirmation'].touched">
+        <p *ngIf="form.errors">
+            {{ form.errors['twoPasswordCheck'] }}
+        </p>
+    </ng-container>
+   
+    <button [disabled]="form.invalid">Envoyer</button>
+
+</form> -->
