@@ -35,6 +35,15 @@ import { Login, Profil, Register } from '../models/Utilisateur-model';
       return this._httpClient.get<Profil>(this.Url + '/' + id);
   }
 
+    getAll(): Observable<Profil[]> {
+      return this._httpClient.get<Profil[]>(this.Url);
+  }
+  
+    getUserByPseudo(p:string): Observable<Profil>{
+      return this._httpClient.get<Profil>(this.Url + '/pseudo?pseudo=' + p)
+    }
+
+
     
       
 }

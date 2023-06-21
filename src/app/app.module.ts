@@ -11,6 +11,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ProfilComponent } from './components/profil/profil.component';
+import { FormsModule } from "@angular/forms";
+import { ProfilUsersComponent } from './components/profil-users/profil-users.component';
 
 
 
@@ -23,7 +26,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     RegisterComponent, 
     LoginComponent, 
     HomeComponent, 
-    NavbarComponent,
+    NavbarComponent, ProfilComponent, ProfilUsersComponent,
   
     
    
@@ -31,6 +34,7 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     NgbModule,
     HttpClientModule,

@@ -13,20 +13,21 @@
             style="margin-top: 2px;"
           />
         </a>
-  
+        
         <!-- Search form -->
-        <form class="input-group w-auto my-auto d-none d-sm-flex">
+        <form class="input-group w-auto my-auto d-none d-sm-flex" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
           <input
             autocomplete="off"
-            type="search"
+            type="text"
             class="form-control rounded"
             placeholder="Search"
             style="min-width: 125px;"
+            formControlName = "textSearch"              
           />
           <span class="input-group-text border-0 d-none d-lg-flex"
             ><i class="fas fa-search"></i
           ></span>
-        </form>
+        </form> 
       </div>
       <!-- Left elements -->
   
@@ -69,7 +70,7 @@
       <!-- Right elements -->
       <ul class="navbar-nav flex-row">
         <li class="nav-item me-3 me-lg-1">
-          <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+          <a class="nav-link d-sm-flex align-items-sm-center" routerLink="/Profil">
             <img
               src="{{avatar}}"
               class="rounded-circle"

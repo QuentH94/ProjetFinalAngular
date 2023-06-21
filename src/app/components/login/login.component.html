@@ -13,7 +13,7 @@
                             <input class="form-control" type="password" placeholder="Enter your Password" formControlName="mdp">
                         </div>
                         <button [disabled]="form.invalid" class="btn signin">Login</button>
-                        <span class="signup">or <a href="/Register">Sign up</a></span>
+                        <span class="signup">or <a routerLink="/Register">Sign up</a></span>
                         <span class="forgot"><a href="">Forgot Password?</a></span>
                         <div *ngIf="form.errors?.['unauthenticated']">
                            Username or Password incorrect!
