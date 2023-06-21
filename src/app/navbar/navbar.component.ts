@@ -12,12 +12,20 @@ export class NavbarComponent implements OnInit{
   user : any;
   Pseudo : any;
   id : any;
+  avatar : any;
   ngOnInit(): void {
     this.id = this._UtilisateurService.IsLoggedIn();
     this._UtilisateurService.getUser(this.id).subscribe(res => { this.user = res;
     this.Pseudo = this.user.pseudo;
+    this.avatar = this.user.pdp;
     console.log(this.Pseudo);
   })
+  }
+  Logout() : void {
+    this._UtilisateurService.Logout(this.id).subscribe();
+    console.log(this.id);
+    sessionStorage.clear;
+    this.router.navigate(['Login']);
   }
 
 }

@@ -10,24 +10,29 @@ import { Login, Profil, Register } from '../models/Utilisateur-model';
 
   export class UtilisateurService{
     constructor (private _httpClient: HttpClient) { }
-    private postUrl = "https://localhost:7250/api/User";
+    private Url = "https://localhost:7250/api/User";
     
 
    
     Register(Utilisateur: Register):Observable<Register> {
-        return this._httpClient.post<Register>(this.postUrl, Utilisateur);
+        return this._httpClient.post<Register>(this.Url, Utilisateur);
     }
 
     Login(Utilisateur: Login ):Observable<Login>{
-      return this._httpClient.post<Login>(this.postUrl + '/Login',Utilisateur);
+      return this._httpClient.post<Login>(this.Url + '/Login',Utilisateur);
     }
     
+    Logout(id: string) {
+      const urlWithId = this.Url + '/Logout?id=' + id;
+      return this._httpClient.put<null>(urlWithId, null)
+    }
+
     IsLoggedIn(){
       return sessionStorage.getItem('userid');
     }
 
     getUser(id: string): Observable<Profil> {
-      return this._httpClient.get<Profil>(this.postUrl + '/' + id);
+      return this._httpClient.get<Profil>(this.Url + '/' + id);
   }
 
     

@@ -13,7 +13,9 @@ export class LoginComponent  implements OnInit {
   form!: FormGroup;
   UserData : any;
   
-  constructor (private fb: FormBuilder, private _UtilisateurService : UtilisateurService, private router: Router, private toats: ToastrService) { }
+  constructor (private fb: FormBuilder, private _UtilisateurService : UtilisateurService, private router: Router, private toats: ToastrService) { 
+    sessionStorage.clear();
+  }
   ngOnInit (): void {
     this.form = this.fb.group({  
      
