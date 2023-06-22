@@ -18,8 +18,5 @@ export class ProfilUsersComponent implements OnInit{
     
     })
   }
-  disableBouton(): void{
-    if(sessionStorage.getItem('userid') == this.user.utilisateurId)
-    this.boutonDisable = true;
-  }
+
 }

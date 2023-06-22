@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Login, Profil, Register } from '../models/Utilisateur-model';
+import { Login, Profil, Register, UpdateNomPrenom } from '../models/Utilisateur-model';
 
 
 @Injectable({
@@ -18,8 +18,8 @@ import { Login, Profil, Register } from '../models/Utilisateur-model';
         return this._httpClient.post<Register>(this.Url, Utilisateur);
     }
 
-    Login(Utilisateur: Login ):Observable<Login>{
-      return this._httpClient.post<Login>(this.Url + '/Login',Utilisateur);
+    Login(Utilisateur: Login ):Observable<string>{
+      return this._httpClient.post(this.Url + '/Login',Utilisateur,{ 'responseType': 'text' });
     }
     
     Logout(id: string) {
@@ -28,19 +28,23 @@ import { Login, Profil, Register } from '../models/Utilisateur-model';
     }
 
     IsLoggedIn(){
-      return sessionStorage.getItem('userid');
+      return sessionStorage.getItem('token');
     }
 
     getUser(id: string): Observable<Profil> {
       return this._httpClient.get<Profil>(this.Url + '/' + id);
-  }
+    }
 
     getAll(): Observable<Profil[]> {
       return this._httpClient.get<Profil[]>(this.Url);
-  }
+    }
   
     getUserByPseudo(p:string): Observable<Profil>{
       return this._httpClient.get<Profil>(this.Url + '/pseudo?pseudo=' + p)
+    }
+
+    UpdateNomPrenom(data : UpdateNomPrenom,id: string){
+      return this._httpClient.patch<null>(this.Url + '/NomPrenom?id=' + id, data)
     }
 
 

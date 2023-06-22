@@ -4,19 +4,19 @@
             <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
                 <div class="form-container">
                     <form class="form-horizontal" [formGroup]="form" (ngSubmit)="Login()">
-                        <h3 class="title">Hi there.</h3>
-                        <span class="description">Lorem ipsum dolor sit amet.</span>
+                        <h3 class="title">Bienvenue</h3>
+                        <span class="description">Connecte toi pour parler avec tes amis !</span>
                         <div class="form-group">
-                            <input class="form-control" type="email" placeholder="Enter your Email" formControlName="email">
+                            <input class="form-control" type="email" placeholder="Email" formControlName="email">
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="password" placeholder="Enter your Password" formControlName="mdp">
+                            <input class="form-control" type="password" placeholder="Mot de passe" formControlName="mdp">
                         </div>
                         <button [disabled]="form.invalid" class="btn signin">Login</button>
-                        <span class="signup">or <a routerLink="/Register">Sign up</a></span>
-                        <span class="forgot"><a href="">Forgot Password?</a></span>
+                        <span class="signup">or <a routerLink="/Register">Inscription</a></span>
+                        <span class="forgot"><a href="">Mot de passe oublié?</a></span>
                         <div *ngIf="form.errors?.['unauthenticated']">
-                           Username or Password incorrect!
+                           Email ou Mot de passe incorrect!
                           </div>
                     </form>
                 </div>

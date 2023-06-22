@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Profil } from 'src/app/models/Utilisateur-model';
 import { UtilisateurService } from 'src/app/services/Utilisateur.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-profil',
@@ -9,26 +11,37 @@ import { UtilisateurService } from 'src/app/services/Utilisateur.service';
   styleUrls: ['./profil.component.scss']
 })
 export class ProfilComponent  implements OnInit{
-  constructor ( private _UtilisateurService : UtilisateurService, private router: Router) { }
+  constructor ( private fb: FormBuilder, private _UtilisateurService : UtilisateurService, private router: Router) { }
   user : any;
   id: any;
-  boutonDisable : boolean = false;
-  connecte : boolean = false;
+  updateData!: FormGroup;
+  openform=false;
+  helper = new JwtHelperService;
   
   
 
   ngOnInit(): void {
-    this.id = this._UtilisateurService.IsLoggedIn();
+    let token = this.helper.decodeToken(sessionStorage.getItem('token') ?? '')
+    this.id = token.nameid;
     this._UtilisateurService.getUser(this.id).subscribe(res => { this.user = res;
-    
-    
+  
+    });
+    this.updateData = this.fb.group({     
+      nom: [''],
+      prenom: [''],
+    });
+  }
+
+  UpdateNomPrenom(){
+    this._UtilisateurService.UpdateNomPrenom(this.updateData.value, this.id).subscribe(res => {
+      console.log("success");
     })
+
+
   }
-  disableBouton(): void{
-    if(sessionStorage.getItem('userid') == this.user.UtilisateurId)
-    this.boutonDisable = true;
-    
-  }
+  onClickOpenForm(){
+    this.openform=true;
+    }
   
 
 }

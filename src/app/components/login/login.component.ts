@@ -26,16 +26,17 @@ export class LoginComponent  implements OnInit {
   }
 
   Login(){
-   this._UtilisateurService.Login(this.form.value).subscribe((res) => {
-    this.UserData=res;
-    console.log(this.UserData);      
-      sessionStorage.setItem('userid',this.UserData.utilisateurId);    
-      this.router.navigate(['Home']);  
-    },
-    (error) => {
-      this.form.setErrors({ unauthenticated: true });
-    }
-    );     
-  }
 
+    this._UtilisateurService.Login(this.form.value).subscribe((res : string) => {
+    sessionStorage.setItem("token", res);
+    this.router.navigate(['Home']);  
+    },
+       (error) => {
+        this.form.setErrors({ unauthenticated: true });
+      });   
+     
+  
+
+
+  }
 }

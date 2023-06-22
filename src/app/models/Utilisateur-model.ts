@@ -7,7 +7,8 @@ export interface Utilisateur{
     Pseudo : string,
     Email : string,
     Mdp : string,
-    DateDeCreation : Date 
+    DateDeCreation : Date,
+    Connecte : boolean
 }
 
 export interface Profil{
@@ -17,7 +18,8 @@ export interface Profil{
     Prenom : string,
     Pseudo : string,
     Email : string,
-    DateDeCreation : Date 
+    DateDeCreation : Date,
+    Connecte : boolean
 }
 export interface Register{
     Pdp : string,
@@ -33,4 +35,9 @@ export interface Login{
     Email : string,
     Mdp : string,
     
+}
+
+export interface UpdateNomPrenom{
+    Nom : string,
+    Prenom : string,
 }

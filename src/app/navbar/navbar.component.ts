@@ -3,6 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Profil } from '../models/Utilisateur-model';
 import { UtilisateurService } from '../services/Utilisateur.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 
 @Component({
@@ -19,8 +21,10 @@ export class NavbarComponent implements OnInit{
   textSearch : any;
   searchForm = this.fb.nonNullable.group({
   textSearch: ''
-  });
-  
+});
+helper = new JwtHelperService;
+
+
 
   constructor ( private _UtilisateurService : UtilisateurService, private router: Router, private fb : FormBuilder) {
    
@@ -31,7 +35,8 @@ export class NavbarComponent implements OnInit{
   
 
   ngOnInit(): void {
-    this.id = this._UtilisateurService.IsLoggedIn();
+     let token = this.helper.decodeToken(sessionStorage.getItem('token') ?? '')
+    this.id = token.nameid;
     this._UtilisateurService.getUser(this.id).subscribe(res => { this.user = res;
     this.Pseudo = this.user.pseudo;
     this.avatar = this.user.pdp;
@@ -53,8 +58,10 @@ export class NavbarComponent implements OnInit{
       if(this.userSearch != null){
         sessionStorage.setItem('userSearch', this.userSearch.utilisateurId);    
       }
+    },
+    error => {
+      alert("Utilisateur inconnu !");
     })
-
   }
 
   onSearchSubmit():void{
@@ -64,15 +71,14 @@ export class NavbarComponent implements OnInit{
     setTimeout (() => {
       this.reloadComponent();
       
-   }, 500);
-    
+   }, 100);
     
   }
 
   reloadComponent() {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['/Profil2']);
+    this.router.navigate(['/ProfilUsers']);
 }
 
 
