@@ -11,14 +11,20 @@ import { UtilisateurService } from 'src/app/services/Utilisateur.service';
 })
 export class AmiComponent implements OnInit{
   constructor(private _UtilisateurService : UtilisateurService, private _AmiService : AmiService){}
-  amis: any;
+  amis!: Ami[];
   id : any;
   helper = new JwtHelperService;
 
   ngOnInit(): void {
     let token = this.helper.decodeToken(sessionStorage.getItem('token') ?? '')
     this.id = token.nameid;
-    this._AmiService.GetAllFriend(this.id).subscribe(res => {this.amis = res});
+    this._AmiService.GetAllFriend().subscribe(res => {this.amis = res});
   }
 
+  Test(){
+    this.amis.forEach(ami => {
+      if(ami.ami == this.id && ami.statusId == 1){
+        
+      }});
+  }
 }

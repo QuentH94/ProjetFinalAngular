@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { UtilisateurService } from 'src/app/services/Utilisateur.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Profil } from 'src/app/models/Utilisateur-model';
+import { Ami } from 'src/app/models/Ami-model';
+import { AmiService } from 'src/app/services/ami.service';
 
 @Component({
   selector: 'app-profil',
@@ -11,8 +13,9 @@ import { Profil } from 'src/app/models/Utilisateur-model';
   styleUrls: ['./profil.component.scss']
 })
 export class ProfilComponent  implements OnInit{
-  constructor ( private fb: FormBuilder, private _UtilisateurService : UtilisateurService, private router: Router) { }
+  constructor ( private fb: FormBuilder, private _UtilisateurService : UtilisateurService, private router: Router, private _AmiService : AmiService) { }
   user! : Profil;
+  amis! : Ami[];
   id: any;
   updateData!: FormGroup;
   openform=false;
@@ -43,5 +46,6 @@ export class ProfilComponent  implements OnInit{
     this.openform=true;
     }
   
+   
 
 }

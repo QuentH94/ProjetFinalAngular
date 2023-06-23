@@ -45,7 +45,7 @@ helper = new JwtHelperService;
     this.Pseudo = this.user.pseudo;
     this.avatar = this.user.pdp;
     });
-    this._AmiService.GetAllFriend(this.id).subscribe(res => {this.amis = res})
+    this._AmiService.GetAllFriend().subscribe(res => {this.amis = res})
     this.count = 0;
     setTimeout (() => {
       this.AffichageDesAmisCo();
@@ -58,8 +58,11 @@ helper = new JwtHelperService;
     
     
   AffichageDesAmisCo():void{
- this.amis.forEach(ami => ami.connecte == true? this.count++ : null)
-  }
+ this.amis.forEach(ami => {
+  if(ami.connecte == true && ami.statusId == 2){
+    this.count++ 
+  }});
+}
 
   Logout() : void {
     this._UtilisateurService.Logout(this.id).subscribe();

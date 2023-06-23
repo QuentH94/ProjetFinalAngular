@@ -1,8 +1,17 @@
 <app-navbar />
-<ul *ngIf="amis">
-    <li *ngFor="let a of amis">   
+<ul *ngFor="let a of amis">
+    <li *ngIf="a.utilisateurId == id && a.statusId == 2">   
       
         {{ a.connecte}}   
         
     </li>
+</ul>
+
+<h1>Demande d'ami :</h1>
+<ul *ngFor="let a of amis">
+<li *ngIf="a.ami == id">
+    <p>test</p>
+</li>
+
+
 </ul>

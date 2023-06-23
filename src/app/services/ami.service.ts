@@ -14,7 +14,7 @@ export class AmiService {
     return this._httpClient.post(this.Url + 'AddFriend?friendId='+ amiId +'&userId=' + utilisateurId,null)
   }
 
-  GetAllFriend(id : string): Observable<Ami[]> {
-    return this._httpClient.get<Ami[]>("https://localhost:7250/api/Ami?id=" + id);
+  GetAllFriend(): Observable<Ami[]> {
+    return this._httpClient.get<Ami[]>("https://localhost:7250/api/Ami");
   }
 }
