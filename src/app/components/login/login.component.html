@@ -12,8 +12,8 @@
                         <div class="form-group">
                             <input class="form-control" type="password" placeholder="Mot de passe" formControlName="mdp">
                         </div>
-                        <button [disabled]="form.invalid" class="btn signin">Login</button>
-                        <span class="signup">or <a routerLink="/Register">Inscription</a></span>
+                        <button [disabled]="form.invalid" class="btn signin">Se connecter</button>
+                        <span class="signup">or <a routerLink="/Register">S'inscrire</a></span>
                         <span class="forgot"><a href="">Mot de passe oublié?</a></span>
                         <div *ngIf="form.errors?.['unauthenticated']">
                            Email ou Mot de passe incorrect!

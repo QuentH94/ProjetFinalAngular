@@ -12,14 +12,14 @@ export interface Utilisateur{
 }
 
 export interface Profil{
-    UtilisateurId : number,
-    Pdp : string,
-    Nom : string,
-    Prenom : string,
-    Pseudo : string,
-    Email : string,
-    DateDeCreation : Date,
-    Connecte : boolean
+    utilisateurId : number,
+    pdp : string,
+    nom : string,
+    prenom : string,
+    pseudo : string,
+    email : string,
+    dateDeCreation : Date,
+    connecte : boolean
 }
 export interface Register{
     Pdp : string,
@@ -32,8 +32,8 @@ export interface Register{
 }
 export interface Login{
   
-    Email : string,
-    Mdp : string,
+    email : string,
+    mdp : string,
     
 }
 

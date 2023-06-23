@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Profil } from '../models/Utilisateur-model';
 import { UtilisateurService } from '../services/Utilisateur.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Ami } from '../models/Ami-model';
+import { AmiService } from '../services/ami.service';
+
 
 
 
@@ -13,6 +15,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit{
+  amis! : Ami[];
+  count : number = 0;
   user : any;
   Pseudo : any;
   id : any;
@@ -26,21 +30,35 @@ helper = new JwtHelperService;
 
 
 
-  constructor ( private _UtilisateurService : UtilisateurService, private router: Router, private fb : FormBuilder) {
-   
-    
-  }
+  constructor ( private _UtilisateurService : UtilisateurService, 
+                private router: Router, 
+                private fb : FormBuilder,              
+                private _AmiService : AmiService) {}
   
 
   
 
   ngOnInit(): void {
-     let token = this.helper.decodeToken(sessionStorage.getItem('token') ?? '')
+    let token = this.helper.decodeToken(sessionStorage.getItem('token') ?? '')
     this.id = token.nameid;
     this._UtilisateurService.getUser(this.id).subscribe(res => { this.user = res;
     this.Pseudo = this.user.pseudo;
     this.avatar = this.user.pdp;
-  })
+    });
+    this._AmiService.GetAllFriend(this.id).subscribe(res => {this.amis = res})
+    this.count = 0;
+    setTimeout (() => {
+      this.AffichageDesAmisCo();
+      
+   }, 250);
+
+    
+  }
+    
+    
+    
+  AffichageDesAmisCo():void{
+ this.amis.forEach(ami => ami.connecte == true? this.count++ : null)
   }
 
   Logout() : void {
@@ -80,6 +98,7 @@ helper = new JwtHelperService;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/ProfilUsers']);
 }
+
 
 
 }

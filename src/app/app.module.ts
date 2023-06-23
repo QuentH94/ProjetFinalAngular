@@ -14,6 +14,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { FormsModule } from "@angular/forms";
 import { ProfilUsersComponent } from './components/profil-users/profil-users.component';
+import { AmiComponent } from './components/ami/ami.component';
 
 
 
@@ -27,7 +28,7 @@ import { ProfilUsersComponent } from './components/profil-users/profil-users.com
     RegisterComponent, 
     LoginComponent, 
     HomeComponent, 
-    NavbarComponent, ProfilComponent, ProfilUsersComponent,
+    NavbarComponent, ProfilComponent, ProfilUsersComponent, AmiComponent,
   
     
    
@@ -41,7 +42,7 @@ import { ProfilUsersComponent } from './components/profil-users/profil-users.com
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-	  ToastrModule.forRoot()
+	  ToastrModule.forRoot({})
 
 
   ],

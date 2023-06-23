@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Profil } from 'src/app/models/Utilisateur-model';
 import { UtilisateurService } from 'src/app/services/Utilisateur.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Profil } from 'src/app/models/Utilisateur-model';
 
 @Component({
   selector: 'app-profil',
@@ -12,7 +12,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class ProfilComponent  implements OnInit{
   constructor ( private fb: FormBuilder, private _UtilisateurService : UtilisateurService, private router: Router) { }
-  user : any;
+  user! : Profil;
   id: any;
   updateData!: FormGroup;
   openform=false;

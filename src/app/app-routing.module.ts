@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AmiComponent } from './components/ami/ami.component';
 
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'Home', component: HomeComponent},
   { path: 'Profil', component: ProfilComponent},
   { path: 'ProfilUsers', component: ProfilUsersComponent},
+  { path : 'Ami', component: AmiComponent},
   { path: '', redirectTo: 'Login', pathMatch: 'full' },
   
 
