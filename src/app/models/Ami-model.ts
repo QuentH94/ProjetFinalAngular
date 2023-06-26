@@ -1,8 +1,12 @@
 export interface Ami{
-    amiId : number,
-    ami : number,
-    statusId : number,
-    utilisateurId : number,
-    connecte : Boolean,
+    utilisateur1 : number,
+    utilisateur2 : number,
+   
+}
+export interface Invitation{
+    id_Invitation : number,
+    id_Status : number,
+    utilisateur1 : number,
+    utilisateur2 : number
 
 }

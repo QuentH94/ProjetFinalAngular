@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
 
   Register(){
 
-    this._UtilisateurService.Register(this.form.value).subscribe(res => {this.toats.success('Registered Successfully')});     
+    this._UtilisateurService.Register(this.form.value).subscribe(res => {this.toats.success('Inscription réussie')});     
     this.router.navigate(['Login']);
   }
 

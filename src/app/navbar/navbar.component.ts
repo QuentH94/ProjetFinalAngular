@@ -5,6 +5,7 @@ import { UtilisateurService } from '../services/Utilisateur.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Ami } from '../models/Ami-model';
 import { AmiService } from '../services/ami.service';
+import { Profil, Utilisateur } from '../models/Utilisateur-model';
 
 
 
@@ -16,8 +17,10 @@ import { AmiService } from '../services/ami.service';
 })
 export class NavbarComponent implements OnInit{
   amis! : Ami[];
+  test! : Profil;
   count : number = 0;
-  user : any;
+  user! : Profil;
+  
   Pseudo : any;
   id : any;
   avatar : any;
@@ -39,30 +42,46 @@ helper = new JwtHelperService;
   
 
   ngOnInit(): void {
+    this.count = 0;
     let token = this.helper.decodeToken(sessionStorage.getItem('token') ?? '')
     this.id = token.nameid;
     this._UtilisateurService.getUser(this.id).subscribe(res => { this.user = res;
     this.Pseudo = this.user.pseudo;
     this.avatar = this.user.pdp;
     });
-    this._AmiService.GetAllFriend().subscribe(res => {this.amis = res})
-    this.count = 0;
+    this._AmiService.GetAllFriend().subscribe(res => {this.amis = res});
     setTimeout (() => {
-      this.AffichageDesAmisCo();
-      
-   }, 250);
-
-    
+      this.affichageAmi();     
+   }, 210);
+   
   }
     
+    async affichageAmi() {
+      if(this.amis){
+        for (const ami of this.amis) {
+          if(this.id == ami.utilisateur1 || this.id == ami.utilisateur2){
+            if(this.id == ami.utilisateur1){
+              const user2 =  await this._UtilisateurService.getUser(ami.utilisateur2.toString()).toPromise();
+              if (user2 && user2.connecte) {
+                this.count ++;
+              }
+            }else{
+            
+                  const user2 =  await this._UtilisateurService.getUser(ami.utilisateur1.toString()).toPromise();
+                  if (user2 && user2.connecte) {
+                    this.count ++;
+                  }
+            }
+          }
+
+        }
+      }
+     
+          
+  
+    }
     
-    
-  AffichageDesAmisCo():void{
- this.amis.forEach(ami => {
-  if(ami.connecte == true && ami.statusId == 2){
-    this.count++ 
-  }});
-}
+
 
   Logout() : void {
     this._UtilisateurService.Logout(this.id).subscribe();
@@ -87,7 +106,7 @@ helper = new JwtHelperService;
 
   onSearchSubmit():void{
     this.textSearch = this.searchForm.value.textSearch ?? '';
-    console.log(this.textSearch);
+    //console.log(this.textSearch);
     this.searchBar();
     setTimeout (() => {
       this.reloadComponent();

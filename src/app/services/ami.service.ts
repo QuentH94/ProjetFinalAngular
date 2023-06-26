@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Ami } from '../models/Ami-model';
+import { Ami, Invitation } from '../models/Ami-model';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +15,9 @@ export class AmiService {
   }
 
   GetAllFriend(): Observable<Ami[]> {
-    return this._httpClient.get<Ami[]>("https://localhost:7250/api/Ami");
+    return this._httpClient.get<Ami[]>("https://localhost:7250/api/Ami/Ami");
+  }
+  GetAllInvitation(): Observable<Invitation[]>{
+    return this._httpClient.get<Invitation[]>("https://localhost:7250/api/Ami/Invitation");
   }
 }
