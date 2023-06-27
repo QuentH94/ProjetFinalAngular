@@ -52,13 +52,13 @@ export class AmiComponent implements OnInit{
           if(this.id == demande.utilisateur1.toString()){
             const user = await this._UtilisateurService.getUser(demande.utilisateur2.toString()).toPromise()
             if(user){
-             const userInvitation = <UserInvitation> {id_Invitation : demande.id_Invitation, pseudo : user.pseudo};
+             const userInvitation = <UserInvitation> {id_Invitation : demande.id_Invitation, pseudo : user.pseudo, email : user.email, pdp : user.pdp};
               this.listDemande.push(userInvitation);
             }
           }else{
             const user = await this._UtilisateurService.getUser(demande.utilisateur1.toString()).toPromise()
             if(user){
-              const userInvitation = <UserInvitation> {id_Invitation : demande.id_Invitation, pseudo : user.pseudo};
+              const userInvitation = <UserInvitation> {id_Invitation : demande.id_Invitation, pseudo : user.pseudo, email : user.email, pdp : user.pdp};
               this.listDemande.push(userInvitation);
             }
           }

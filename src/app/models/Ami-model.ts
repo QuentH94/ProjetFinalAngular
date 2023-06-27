@@ -14,4 +14,7 @@ export interface Invitation{
 export interface UserInvitation{
     id_Invitation : number,
     pseudo : string,
+    email : string,
+    pdp : string,
+
 }

@@ -6,6 +6,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Ami } from '../models/Ami-model';
 import { AmiService } from '../services/ami.service';
 import { Profil, Utilisateur } from '../models/Utilisateur-model';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -35,7 +36,8 @@ helper = new JwtHelperService;
   constructor ( private _UtilisateurService : UtilisateurService, 
                 private router: Router, 
                 private fb : FormBuilder,              
-                private _AmiService : AmiService) {}
+                private _AmiService : AmiService, 
+                private _Toastr : ToastrService) {}
   
 
   
@@ -94,13 +96,17 @@ helper = new JwtHelperService;
       }
     },
     error => {
-      alert("Utilisateur inconnu !");
+      sessionStorage.setItem('userSearch','');
+      setTimeout (() => {
+      this.router.navigate(['/Home']);
+    }, 100);
+      this._Toastr.error("Utilisateur introuvable!");
     })
   }
 
   onSearchSubmit():void{
     this.textSearch = this.searchForm.value.textSearch ?? '';
-    //console.log(this.textSearch);
+    
     this.searchBar();
     setTimeout (() => {
       this.reloadComponent();

@@ -4,6 +4,7 @@ import { AmiService } from 'src/app/services/ami.service';
 import { UtilisateurService } from 'src/app/services/Utilisateur.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
+import { Profil } from 'src/app/models/Utilisateur-model';
 @Component({
   selector: 'app-profil-users',
   templateUrl: './profil-users.component.html',
@@ -11,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProfilUsersComponent implements OnInit{
   constructor ( private _UtilisateurService : UtilisateurService, private router: Router, private _AmiService : AmiService, private _Toastr : ToastrService) { }
-  user : any;
+  user! : Profil;
   id: any;
   currentUserId : any;
   helper = new JwtHelperService;
