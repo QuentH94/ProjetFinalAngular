@@ -20,7 +20,6 @@ export class NavbarComponent implements OnInit{
   test! : Profil;
   count : number = 0;
   user! : Profil;
-  
   Pseudo : any;
   id : any;
   avatar : any;
@@ -52,7 +51,7 @@ helper = new JwtHelperService;
     this._AmiService.GetAllFriend().subscribe(res => {this.amis = res});
     setTimeout (() => {
       this.affichageAmi();     
-   }, 210);
+   }, 280);
    
   }
     
@@ -65,20 +64,15 @@ helper = new JwtHelperService;
               if (user2 && user2.connecte) {
                 this.count ++;
               }
-            }else{
-            
+            }else{           
                   const user2 =  await this._UtilisateurService.getUser(ami.utilisateur1.toString()).toPromise();
                   if (user2 && user2.connecte) {
                     this.count ++;
                   }
             }
           }
-
         }
-      }
-     
-          
-  
+      }         
     }
     
 

@@ -1,15 +1,27 @@
 <app-navbar />
-<ul *ngFor="let u of listUser">
-    <li *ngIf="u != null">
-      <p>{{ u.pseudo }}</p>
+<h1>Liste des amis :</h1>
+<ul *ngFor="let a of listAmis">
+    <li *ngIf="a != null">
+        <img *ngIf="a.pdp != ''"
+              src="{{a.pdp}}"
+              class="rounded-circle"
+              height="25"
+              alt=""
+              loading="lazy"
+            /> {{ a.pseudo }}  {{a.connecte ? '🟢' : '🔴'}} <button (click)="voirProfil(a.utilisateurId)">Profil</button>
+                                                             <button (click)="message()">Message</button>
+                                                             <button (click)="supprimerAmi(a.utilisateurId)">X</button>
+      
     </li>
   </ul>
   
 
 <h1>Demande d'ami :</h1>
-<ul *ngFor="let a of amis">
-<li *ngIf="">
-    <p></p>
+<ul *ngFor="let d of listDemande">
+<li *ngIf="d != null">
+    {{d.pseudo}}
+    <button (click)="Accepter(d.id_Invitation)">Accepter</button>
+    <button (click)="Refuser(d.id_Invitation)">Refuser</button>
    
 </li>
 

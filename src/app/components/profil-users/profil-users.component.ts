@@ -13,7 +13,7 @@ export class ProfilUsersComponent implements OnInit{
   constructor ( private _UtilisateurService : UtilisateurService, private router: Router, private _AmiService : AmiService, private _Toastr : ToastrService) { }
   user : any;
   id: any;
-  currentId : any;
+  currentUserId : any;
   helper = new JwtHelperService;
   
 
@@ -21,12 +21,12 @@ export class ProfilUsersComponent implements OnInit{
     this.id = sessionStorage.getItem('userSearch');
     this._UtilisateurService.getUser(this.id).subscribe(res => { this.user = res;
       let token = this.helper.decodeToken(sessionStorage.getItem('token') ?? '')
-      this.currentId = token.nameid;
+      this.currentUserId = token.nameid;
     
     })
   }
 ajouterAmi(){
-  this._AmiService.AjouterAmi(this.id,this.currentId).subscribe(res => {
+  this._AmiService.SendFriendResquest(this.id,this.currentUserId,this.currentUserId).subscribe(res => {
     this._Toastr.success("Demande d'ami envoyée");
     
   });
