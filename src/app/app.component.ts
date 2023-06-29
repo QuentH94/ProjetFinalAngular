@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AppComponent {
   title: any;
+
   constructor(private modalService: NgbModal) {
   }
 

@@ -15,7 +15,7 @@ import { ProfilComponent } from './components/profil/profil.component';
 import { FormsModule } from "@angular/forms";
 import { ProfilUsersComponent } from './components/profil-users/profil-users.component';
 import { AmiComponent } from './components/ami/ami.component';
-
+import { HubConnection } from '@microsoft/signalr';
 
 
 
@@ -46,7 +46,7 @@ import { AmiComponent } from './components/ami/ami.component';
 
 
   ],
-  providers: [],
+  providers: [{ provide: HubConnection, useValue: HubConnection },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
