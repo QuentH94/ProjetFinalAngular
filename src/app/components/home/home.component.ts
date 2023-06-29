@@ -78,6 +78,7 @@ AfficherMessageGlobaux() {
     this.listMessageGlobal.forEach(message => {
       if (u.utilisateurId == message.expediteur) {
         const test = <UserMessage>{
+          utilisateurId:u.utilisateurId,
           pdp: u.pdp,
           message: message.message,
           pseudo: u.pseudo,
@@ -96,7 +97,7 @@ AfficherMessageGlobaux() {
 
 startSignalRConnection() {
   this.hubConnection = new HubConnectionBuilder()
-    .withUrl('https://localhost:7250/MessageGlobalHub', { accessTokenFactory: () => sessionStorage.getItem('token') ?? '', transport: HttpTransportType.WebSockets })
+    .withUrl('https://localhost:7250/MessageGlobalHub')//, { accessTokenFactory: () => sessionStorage.getItem('token') ?? '', transport: HttpTransportType.WebSockets })
     .build();
 
   this.hubConnection.start()

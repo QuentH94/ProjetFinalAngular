@@ -43,3 +43,13 @@ body{margin-top:20px;}
 .border-top {
     border-top: 1px solid #dee2e6!important;
 }
+
+.chat-message-right {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  
+  .chat-message-left {
+    display: flex;
+    flex-direction: row;
+  }

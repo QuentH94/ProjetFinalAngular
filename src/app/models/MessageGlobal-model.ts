@@ -5,6 +5,7 @@ export interface MessageGlobal{
     heure : Date,
 }
 export interface UserMessage{
+    utilisateurId:number,
     pdp : string,
     message : string,
     pseudo : string,
