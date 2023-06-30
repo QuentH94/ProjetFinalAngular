@@ -5,15 +5,19 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
   providedIn: 'root'
 })
 export class SignalRService {
-  private hubConnection: HubConnection;
 
-  constructor() {
+
+  constructor(private hubConnection: HubConnection) {}
+
+
+  startSignalRConnection() {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl('https://localhost:7250/MessageGlobalHub') // Remplacez l'URL par celle de votre hub
+      .withUrl('https://localhost:7250/SignalRHub')//, { accessTokenFactory: () => sessionStorage.getItem('token') ?? '', transport: HttpTransportType.WebSockets })
       .build();
-
+  
     this.hubConnection.start()
-      .then(() => console.log('Connexion SignalR établie.'))
-      .catch(error => console.error('Erreur lors de la connexion SignalR :', error));
-  }
+      .then(() => console.log('Connexion établie avec le hub SignalR'))
+      .catch(err => console.log('Erreur lors de la connexion au hub SignalR :', err));
+  
+   }
 }

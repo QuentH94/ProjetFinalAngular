@@ -7,6 +7,7 @@ import { MessageGlobalService } from 'src/app/services/message-global.service';
 import { UtilisateurService } from 'src/app/services/Utilisateur.service';
 import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { ToastrService } from 'ngx-toastr';
+import { SignalRService } from 'src/app/services/signal-r.service';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class HomeComponent implements OnInit{
     private fb: FormBuilder,
     private hubConnection: HubConnection,
     private _Toastr : ToastrService,
+    
   ) {
     this.messageForm = this.fb.group({
       message: ''
@@ -57,6 +59,7 @@ onSubmitMessage(): void {
     
     console.error("Erreur lors de l'envoi du message :", error);
   });
+  
 }
 
 

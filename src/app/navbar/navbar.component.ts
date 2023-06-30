@@ -7,6 +7,7 @@ import { Ami } from '../models/Ami-model';
 import { AmiService } from '../services/ami.service';
 import { Profil, Utilisateur } from '../models/Utilisateur-model';
 import { ToastrService } from 'ngx-toastr';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 
 
 
@@ -37,7 +38,8 @@ helper = new JwtHelperService;
                 private router: Router, 
                 private fb : FormBuilder,              
                 private _AmiService : AmiService, 
-                private _Toastr : ToastrService) {}
+                private _Toastr : ToastrService,
+                private hubConnection: HubConnection,) {}
   
 
   
@@ -53,11 +55,13 @@ helper = new JwtHelperService;
     this._AmiService.GetAllFriend().subscribe(res => {this.amis = res});
     setTimeout (() => {
       this.affichageAmi();     
-   }, 280);
-   
+   }, 300);
+   this.startSignalRConnection();
   }
     
     async affichageAmi() {
+      this._AmiService.GetAllFriend().subscribe(res => {this.amis = res});
+      this.count = 0;
       if(this.amis){
         for (const ami of this.amis) {
           if(this.id == ami.utilisateur1 || this.id == ami.utilisateur2){
@@ -74,7 +78,7 @@ helper = new JwtHelperService;
             }
           }
         }
-      }         
+      }       
     }
     
 
@@ -84,9 +88,33 @@ helper = new JwtHelperService;
     console.log(this.id);
     sessionStorage.clear;
     this.router.navigate(['Login']);
+    this.hubConnection.invoke('Logout');
   }
 
+
+  startSignalRConnection() {
+    this.hubConnection = new HubConnectionBuilder()
+      .withUrl('https://localhost:7250/SignalRHub')//, { accessTokenFactory: () => sessionStorage.getItem('token') ?? '', transport: HttpTransportType.WebSockets })
+      .build();
+
+    this.hubConnection.start()
+      .then(() => console.log('Connexion établie avec le hub SignalR'))
+      .catch(err => console.log('Erreur lors de la connexion au hub SignalR :', err));
   
+    this.hubConnection.on('UserLogin', () => {
+      setTimeout (() => {
+        this.affichageAmi();     
+     }, 300);
+     console.log('un ami vient de se co');
+    });
+    this.hubConnection.on('UserLogout',()=>{
+      setTimeout (() => {
+        this.affichageAmi();     
+     }, 300);
+     console.log('un ami se déco');
+    })
+   }
+
 
   searchBar(): void{
     this._UtilisateurService.getUserByPseudo(this.textSearch).subscribe(res => {
