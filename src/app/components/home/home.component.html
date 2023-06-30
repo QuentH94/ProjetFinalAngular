@@ -70,57 +70,80 @@
   </section>  -->
 
  
-  <main class="content">
+  
+
+
+<main class="content">
     <div class="container p-0">
-
-		<h1 class="h3 mb-3">Membres connectés</h1>
-
-		<div class="card">
+        <h1 class="h3 mb-3">Membres connectés</h1>
+        <div class="card">
 			<div class="row g-0">
 				<div class="col-12 col-lg-5 col-xl-3 border-right">
-
-					<a *ngFor="let u of listUser" class="list-group-item list-group-item-action border-0">
-						
+			
+                    <a *ngFor="let u of listUser" class="list-group-item list-group-item-action border-0">					
 						<div *ngIf="u.connecte" class="d-flex align-items-start">
 							<img src="{{u.pdp}}" class="rounded-circle mr-1" alt="{{u.pseudo}}" width="50" height="50">
 							<div class="flex-grow-1 ml-3">
 								{{u.pseudo}}			
 							</div>
 						</div>
-					</a>				
+					</a>			
+						
+				
 					<hr class="d-block d-lg-none mt-1 mb-0">
 				</div>
-				<div class="col-12 col-lg-7 col-xl-9">
-					
 
 
 
+	    <div class="col-12 col-lg-7 col-xl-9">
 
-                    <div *ngFor="let t of listUserMessage" class="chat-message pb-4"
-     [ngClass]="{ 'chat-message-right': t.utilisateurId == currentId, 'chat-message-left': t.utilisateurId !== currentId }">
-  <div *ngIf="t != null">
-    <img src="{{ t.pdp }}" class="rounded-circle mr-1" alt="{{ t.pseudo }}" width="50" height="50">
-    <div class="text-muted small text-nowrap mt-2">{{ t.heure }}</div>
-  </div>
-  <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-    <div class="font-weight-bold mb-1">{{ t.pseudo }}</div>
-    {{ t.message }}
-  </div>
-</div>
+					<div class="position-relative">
+						<div class="chat-messages p-4">
+                            <div *ngFor="let t of listUserMessage">
+                                <div *ngIf="t.utilisateurId == currentId; then currentUser; else otherUser"></div>
+                                <ng-template #currentUser>
+                                    <div class="chat-message-right pb-4">
+                                        <div>
+                                            <img src="{{t.pdp}}" class="rounded-circle mr-1" alt="{{t.pseudo}}" width="40" height="40">
+                                            <div class="text-muted small text-nowrap mt-2">{{t.heure | date:'short'}}</div>
+                                        </div>
+                                        <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                            <div class="font-weight-bold mb-1">{{t.pseudo}}</div>
+                                            {{t.message}}
+                                        </div>
+                                    </div>
+                                </ng-template>
+    
+                                    <ng-template #otherUser>
+                                         <div class="chat-message-left pb-4">
+                                                <div>
+                                                    <img src="{{t.pdp}}" class="rounded-circle mr-1" alt="{{t.pseudo}}" width="40" height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">{{t.heure}}</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                    <div class="font-weight-bold mb-1">{{t.pseudo}}</div>
+                                                    {{t.message}}
+                                                </div>                        
+                                        </div>
+                                    </ng-template>
+                            </div>
+                             
+                    
+						</div>
+					</div>
 
-
-                    <form [formGroup]="messageForm">
+				    <form [formGroup]="messageForm">
                         <div class="flex-grow-0 py-3 px-4 border-top">
                           <div class="input-group">
-                            <input type="text" formControlName="message" class="form-control" placeholder="Type your message">
-                            <button (click)="onSubmitMessage()" class="btn btn-primary">Send</button>
-                           
+                            <input type="text" formControlName="message" class="form-control" placeholder="Message">
+                            <button (click)="onSubmitMessage()" class="btn btn-primary">Envoyer</button>                
                           </div>
                         </div>
                       </form>
-                      
+
 				</div>
 			</div>
+      
 		</div>
 	</div>
 </main>

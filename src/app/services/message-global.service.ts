@@ -23,5 +23,10 @@ export class MessageGlobalService {
    return this._httpClient.post(this.url + "AddMessageGlobal?expediteur="+ expediteur +"&message=" + message,null)
   }
 
+  GetLastMessageGlobal():Observable<MessageGlobal>
+  {
+    return this._httpClient.get<MessageGlobal>(this.url+"GetLastMessageGlobal");
+  }
+
 
 }

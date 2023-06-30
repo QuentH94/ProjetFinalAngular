@@ -6,6 +6,7 @@ import { Profil } from 'src/app/models/Utilisateur-model';
 import { MessageGlobalService } from 'src/app/services/message-global.service';
 import { UtilisateurService } from 'src/app/services/Utilisateur.service';
 import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -14,11 +15,11 @@ import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microso
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
-
   listUser : Profil[]=[];
-  listMessageGlobal : MessageGlobal[] = []
-  listUserMessage : UserMessage[]=[]
-  currentId : any
+  listMessageGlobal : MessageGlobal[] = [];
+  listUserMessage : UserMessage[]=[];
+  lastMessage! : UserMessage;
+  currentId : any;
   helper = new JwtHelperService;
   message: string = '';
   messageForm: FormGroup;
@@ -27,7 +28,8 @@ export class HomeComponent implements OnInit{
     private _UtilisateurService: UtilisateurService,
     private _MessageGlobalService: MessageGlobalService,
     private fb: FormBuilder,
-    private hubConnection: HubConnection
+    private hubConnection: HubConnection,
+    private _Toastr : ToastrService,
   ) {
     this.messageForm = this.fb.group({
       message: ''
@@ -39,41 +41,32 @@ export class HomeComponent implements OnInit{
   ngOnInit(): void {
    let token = this.helper.decodeToken(sessionStorage.getItem('token') ?? '')
    this.currentId = token.nameid;
-   this._UtilisateurService.getAll().subscribe(res => {this.listUser = res})
-   this._MessageGlobalService.GetAllMessageGlobal().subscribe(res => {this.listMessageGlobal = res})
-   setTimeout (() => {
-    
-     this.AfficherMessageGlobaux();
-    
- }, 300);   
-
- this.startSignalRConnection();
-
-
+     this.AfficherMessageGlobaux();   
+     this.startSignalRConnection();    
 }
 
 onSubmitMessage(): void {
   this.message = this.messageForm.value.message ?? '';
   this._MessageGlobalService.AddMessageGlobal(this.currentId, this.message).subscribe(() => {
     console.log("Envoi réussi");
-    this.messageForm.reset();
-    setTimeout(() => {
-      this.AfficherMessageGlobaux();
-    }, 300); // Attendre 500 millisecondes avant de mettre à jour la liste des messages
+    this.messageForm.reset();               
+    this.hubConnection.invoke('SendMessage')
+      .catch(err => console.error('Erreur :', err));;
   }, error => {
+    this._Toastr.error("Vous devez entrer un message avant de l'envoyer");
+    
     console.error("Erreur lors de l'envoi du message :", error);
   });
-
-  this.hubConnection.invoke('SendMessage')
-    .catch(err => console.error('Erreur :', err));;
 }
 
 
 
+
 AfficherMessageGlobaux() {
+ this.listUserMessage = []; // Effacer la liste avant de la mettre à jour     
  this._UtilisateurService.getAll().subscribe(res => {this.listUser = res}); // Récup de tout mes users
  this._MessageGlobalService.GetAllMessageGlobal().subscribe(res => {this.listMessageGlobal = res}); //Récup de tout mes messages globaux
-  this.listUserMessage = []; // Effacer la liste avant de la mettre à jour
+  setTimeout (() => {
   for (let u of this.listUser) {
     this.listMessageGlobal.forEach(message => {
       if (u.utilisateurId == message.expediteur) {
@@ -84,34 +77,53 @@ AfficherMessageGlobaux() {
           pseudo: u.pseudo,
           heure: message.heure,
           connecte: u.connecte
-        };
+        };       
         if (test) {
-          this.listUserMessage.push(test);
-        
+          this.listUserMessage.push(test);       
         }
       }
     })
   }
+}, 500); 
 }
+
+afficherDernierMessage(){
+  this._MessageGlobalService.GetLastMessageGlobal().subscribe(resmessage =>{
+  this._UtilisateurService.getUser(resmessage.expediteur.toString()).subscribe( res => {let user = res;    
+      const test = <UserMessage>{
+        utilisateurId:user.utilisateurId,
+        pdp: user.pdp,
+        message: resmessage.message,
+        pseudo: user.pseudo,
+        heure: resmessage.heure,
+        connecte: user.connecte  
+      };      
+      if (test) {
+        this.listUserMessage.push(test);       
+      }else{
+        console.log("user null")
+      }   
+    });
+  });
+}
+
 
 
 startSignalRConnection() {
   this.hubConnection = new HubConnectionBuilder()
-    .withUrl('https://localhost:7250/MessageGlobalHub')//, { accessTokenFactory: () => sessionStorage.getItem('token') ?? '', transport: HttpTransportType.WebSockets })
+    .withUrl('https://localhost:7250/SignalRHub')//, { accessTokenFactory: () => sessionStorage.getItem('token') ?? '', transport: HttpTransportType.WebSockets })
     .build();
 
   this.hubConnection.start()
     .then(() => console.log('Connexion établie avec le hub SignalR'))
     .catch(err => console.log('Erreur lors de la connexion au hub SignalR :', err));
 
-  this.hubConnection.on('ReceiveMessage', () => {
-    console.log('Nouveau message reçu');
- 
-      this.AfficherMessageGlobaux();
-      console.log('cest sensé ce mettre a jour');
-  // Mettre à jour la liste des messages après un délai de 500 millisecondes
-  });
-}
 
+  this.hubConnection.on('ReceiveNewMessageGlobal', () => {
+      console.log('Nouveau message reçu');    
+        this.afficherDernierMessage();                    
+      console.log('cest sensé ce mettre a jour');  
+  });
+ }
 }
 
