@@ -134,7 +134,7 @@ export class AmiComponent implements OnInit{
       this.amis = [];
       setTimeout (() => {
         this.Ami();          
-      }, 100); 
+      }, 300); 
      
      console.log('un ami vient de se co');
     });
@@ -143,7 +143,7 @@ export class AmiComponent implements OnInit{
       this.amis = [];
       setTimeout (() => {
         this.Ami();            
-      }, 100); 
+      }, 300); 
     
      console.log('un ami se déco');
     })

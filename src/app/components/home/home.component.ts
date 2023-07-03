@@ -65,32 +65,58 @@ onSubmitMessage(): void {
 
 
 
-AfficherMessageGlobaux() {
+// AfficherMessageGlobaux() {
+//  this.listUserMessage = []; // Effacer la liste avant de la mettre à jour     
+//  this._UtilisateurService.getAll().subscribe(res => {this.listUser = res}); // Récup de tout mes users
+//  this._MessageGlobalService.GetAllMessageGlobal().subscribe(res => {this.listMessageGlobal = res}); //Récup de tout mes messages globaux
+//   setTimeout (() => {
+//   for (let u of this.listUser) {
+//     this.listMessageGlobal.forEach(message => {
+//       if(u.utilisateurId == message.expediteur){
+//         const test = <UserMessage>{
+//           utilisateurId:u.utilisateurId,
+//           pdp: u.pdp,
+//           message: message.message,
+//           pseudo: u.pseudo,
+//           heure: message.heure,
+//           connecte: u.connecte
+//         };       
+//         if(test){
+//           this.listUserMessage.push(test);       
+//         }
+//       }
+//     })
+//   }
+// }, 500); 
+// }
+
+AfficherMessageGlobaux(){
  this.listUserMessage = []; // Effacer la liste avant de la mettre à jour     
  this._UtilisateurService.getAll().subscribe(res => {this.listUser = res}); // Récup de tout mes users
  this._MessageGlobalService.GetAllMessageGlobal().subscribe(res => {this.listMessageGlobal = res}); //Récup de tout mes messages globaux
-  setTimeout (() => {
-  for (let u of this.listUser) {
-    this.listMessageGlobal.forEach(message => {
-      if (u.utilisateurId == message.expediteur) {
+ setTimeout (() => {
+ for(let mess of this.listMessageGlobal){
+    this.listUser.forEach(user => {
+      if(mess.expediteur == user.utilisateurId){
         const test = <UserMessage>{
-          utilisateurId:u.utilisateurId,
-          pdp: u.pdp,
-          message: message.message,
-          pseudo: u.pseudo,
-          heure: message.heure,
-          connecte: u.connecte
-        };       
-        if (test) {
+          utilisateurId:user.utilisateurId,
+          pdp: user.pdp,
+          message: mess.message,
+          pseudo: user.pseudo,
+          heure: mess.heure,
+          connecte: user.connecte
+        };  
+        if(test){
           this.listUserMessage.push(test);       
-        }
+        }   
       }
     })
-  }
+ }
 }, 500); 
 }
 
-afficherDernierMessage(){
+
+affichageDernierMessage(){
   this._MessageGlobalService.GetLastMessageGlobal().subscribe(resmessage =>{
   this._UtilisateurService.getUser(resmessage.expediteur.toString()).subscribe( res => {let user = res;    
       const test = <UserMessage>{
@@ -124,8 +150,15 @@ startSignalRConnection() {
 
   this.hubConnection.on('ReceiveNewMessageGlobal', () => {
       console.log('Nouveau message reçu');    
-        this.afficherDernierMessage();                    
+        this.affichageDernierMessage();                    
       console.log('cest sensé ce mettre a jour');  
+  });
+
+  this.hubConnection.on('UserLogin', () => {
+    
+  });
+  this.hubConnection.on('UserLogout',()=>{
+   
   });
  }
 }

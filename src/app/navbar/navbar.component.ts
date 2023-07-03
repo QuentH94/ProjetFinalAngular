@@ -112,7 +112,7 @@ helper = new JwtHelperService;
         this.affichageAmi();     
      }, 300);
      console.log('un ami se déco');
-    })
+    });
    }
 
 
