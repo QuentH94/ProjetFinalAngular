@@ -155,10 +155,13 @@ startSignalRConnection() {
   });
 
   this.hubConnection.on('UserLogin', () => {
+    this.listUser =[];
+    this._UtilisateurService.getAll().subscribe(res => {this.listUser = res}); // Récup de tout mes users
     
   });
   this.hubConnection.on('UserLogout',()=>{
-   
+    this.listUser =[];
+    this._UtilisateurService.getAll().subscribe(res => {this.listUser = res}); // Récup de tout mes users
   });
  }
 }

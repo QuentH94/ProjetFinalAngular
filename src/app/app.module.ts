@@ -17,6 +17,7 @@ import { ProfilUsersComponent } from './components/profil-users/profil-users.com
 import { AmiComponent } from './components/ami/ami.component';
 import { HubConnection } from '@microsoft/signalr';
 import {NgPipesModule} from 'ngx-pipes';
+import { MessagePriveComponent } from './components/message-prive/message-prive.component';
 
 
 
@@ -28,7 +29,7 @@ import {NgPipesModule} from 'ngx-pipes';
     RegisterComponent, 
     LoginComponent, 
     HomeComponent, 
-    NavbarComponent, ProfilComponent, ProfilUsersComponent, AmiComponent,
+    NavbarComponent, ProfilComponent, ProfilUsersComponent, AmiComponent, MessagePriveComponent,
   
     
    

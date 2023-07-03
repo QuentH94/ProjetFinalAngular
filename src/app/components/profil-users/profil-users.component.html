@@ -22,7 +22,13 @@
               <h5 class="my-3">{{user.prenom}} {{user.nom}}</h5>
               <div class="d-flex justify-content-center mb-2">
                 <button type="button" (click)="ajouterAmi()" class="btn btn-primary">Ajouter</button>
-                <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                <button type="button" (click)="onClickOpenForm()" class="btn btn-outline-primary ms-1">Message</button>
+              </div>
+              <div [hidden]="!openform">
+                <form [formGroup]="messagePriveForm" (ngSubmit)="messagePrive()">           
+                        <input class="form-control" type="text" placeholder="Message" formControlName="message">                                       
+                    <button [disabled]="messagePriveForm.invalid">Envoyer</button>
+                </form>
               </div>
             </div>
           </div>

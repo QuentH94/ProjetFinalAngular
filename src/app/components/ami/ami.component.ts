@@ -33,7 +33,7 @@ export class AmiComponent implements OnInit{
     setTimeout (() => {
       this.Ami();     
       this.demandeAmi();
-    }, 300);
+    }, 400);
   
 
     this.startSignalRConnection();
