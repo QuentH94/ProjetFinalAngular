@@ -20,7 +20,8 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 export class NavbarComponent implements OnInit{
   amis! : Ami[];
   test! : Profil;
-  count : number = 0;
+  countFriend : number = 0;
+  countMessage : number = 0;
   user! : Profil;
   Pseudo : any;
   id : any;
@@ -45,7 +46,7 @@ helper = new JwtHelperService;
   
 
   ngOnInit(): void {
-    this.count = 0;
+    this.countFriend = 0;
     let token = this.helper.decodeToken(sessionStorage.getItem('token') ?? '')
     this.id = token.nameid;
     this._UtilisateurService.getUser(this.id).subscribe(res => { this.user = res;
@@ -55,25 +56,25 @@ helper = new JwtHelperService;
     this._AmiService.GetAllFriend().subscribe(res => {this.amis = res});
     setTimeout (() => {
       this.affichageAmi();     
-   }, 300);
+   }, 400);
    this.startSignalRConnection();
   }
     
     async affichageAmi() {
       this._AmiService.GetAllFriend().subscribe(res => {this.amis = res});
-      this.count = 0;
+      this.countFriend = 0;
       if(this.amis){
         for (const ami of this.amis) {
           if(this.id == ami.utilisateur1 || this.id == ami.utilisateur2){
             if(this.id == ami.utilisateur1){
               const user2 =  await this._UtilisateurService.getUser(ami.utilisateur2.toString()).toPromise();
               if (user2 && user2.connecte) {
-                this.count ++;
+                this.countFriend ++;
               }
             }else{           
                   const user2 =  await this._UtilisateurService.getUser(ami.utilisateur1.toString()).toPromise();
                   if (user2 && user2.connecte) {
-                    this.count ++;
+                    this.countFriend ++;
                   }
             }
           }

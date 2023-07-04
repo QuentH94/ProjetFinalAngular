@@ -27,7 +27,7 @@ export class ProfilUsersComponent implements OnInit{
   helper = new JwtHelperService;
   messagePriveForm!: FormGroup;
   openform=false;
-  messageString: string ='';
+  message: string = '';
   
 
   ngOnInit(): void {
@@ -35,10 +35,10 @@ export class ProfilUsersComponent implements OnInit{
     this._UtilisateurService.getUser(this.id).subscribe(res => { this.user = res;
       let token = this.helper.decodeToken(sessionStorage.getItem('token') ?? '')
       this.currentUserId = token.nameid;
-      this.messagePriveForm = this.fb.group({     
-        message: ['']
-      });
     })
+    this.messagePriveForm = this.fb.group({     
+      message: ['']
+    });
   }
 ajouterAmi(){
   this._AmiService.SendFriendResquest(this.id,this.currentUserId,this.currentUserId).subscribe(res => {
@@ -48,8 +48,8 @@ ajouterAmi(){
 }
 
 messagePrive(){
-
-this._MessagePriveService.AddMessagePrive(this.currentUserId,this.id,'test').subscribe(res => {
+this.message = this.messagePriveForm.value.message ?? '';
+this._MessagePriveService.AddMessagePrive(this.currentUserId,this.id,this.message).subscribe(res => {
 this._Toastr.info("Message envoyé")});
 this.openform=false;
 }

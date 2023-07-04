@@ -5,3 +5,13 @@ export interface MessagePrive{
     message : string,
     heure : Date,
 }
+
+export interface UserMessagePrive{
+    utilisateurId:number,
+    pdp : string,
+    message : string,
+    pseudo : string,
+    heure : Date,
+    connecte : boolean,
+
+}

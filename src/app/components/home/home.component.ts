@@ -151,7 +151,7 @@ startSignalRConnection() {
   this.hubConnection.on('ReceiveNewMessageGlobal', () => {
       console.log('Nouveau message reçu');    
         this.affichageDernierMessage();                    
-      console.log('cest sensé ce mettre a jour');  
+      
   });
 
   this.hubConnection.on('UserLogin', () => {

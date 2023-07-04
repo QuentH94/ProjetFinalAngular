@@ -4,10 +4,11 @@ import { AmiComponent } from './components/ami/ami.component';
 
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { MessagePriveComponent } from './components/message-prive/message-prive.component';
 import { ProfilUsersComponent } from './components/profil-users/profil-users.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { RegisterComponent } from './components/register/register.component';
-import { Authguard } from './guard/authguard.guard';
+
 
 const routes: Routes = [
   { path: 'Register', component: RegisterComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'Profil', component: ProfilComponent},
   { path: 'ProfilUsers', component: ProfilUsersComponent},
   { path : 'Ami', component: AmiComponent},
+  { path : 'Message', component: MessagePriveComponent},
   { path: '', redirectTo: 'Login', pathMatch: 'full' },
   
 
