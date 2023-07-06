@@ -49,7 +49,6 @@ export class AmiComponent implements OnInit{
       this.demandeAmi();
     }, 400);
   
-
     this.startSignalRConnection();
 
     this.messagePriveForm = this.fb.group({     

@@ -4,13 +4,13 @@ export function twoPasswordValidate (controlGroup: AbstractControl): ValidationE
 
     if (controlGroup.value.mdp && controlGroup.value.mdpConfirmation) {
         if (controlGroup.value.mdp !== controlGroup.value.mdpConfirmation) {
-            return { twoPasswordCheck: 'Mots de passe différents' };
+            return { twoPasswordCheck: 'Mots de passe différents !' };
         }
 
         return null;
 
     }
 
-    return { twoPasswordCheck: 'Champ obligatoire' };
+    return { twoPasswordCheck: 'Champ obligatoire !' };
 
 }

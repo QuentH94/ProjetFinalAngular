@@ -23,9 +23,9 @@
                             <label>Pseudo</label>
                             <input type="text" class="form-control" placeholder="Pseudo" formControlName="pseudo">
                             <ng-container *ngIf="form.controls['pseudo'].touched">
-                            <h5 *ngIf="form.controls['pseudo'].errors">
+                            <h6 color="red" *ngIf="form.controls['pseudo'].errors">
                                 {{ form.controls['pseudo'].errors['name'] }}
-                            </h5>
+                            </h6>
                             </ng-container>
                         </div>
             
@@ -33,9 +33,9 @@
                             <label>Email :</label>
                             <input type="email" formControlName="email" class="form-control"  placeholder="Email">
                             <ng-container *ngIf="form.controls['email'].touched">
-                            <h5 *ngIf="form.controls['email'].errors">
+                            <h6 color="red" *ngIf="form.controls['email'].errors">
                                 {{ form.controls['email'].errors['name'] }}
-                            </h5>
+                            </h6>
                             </ng-container>
                         </div>
                         <div class="form-group">
@@ -46,9 +46,9 @@
                             <label>Mdp Confirmation :</label>
                             <input type="password" formControlName="mdpConfirmation" class="form-control"  placeholder="Mdp Confirmation">
                             <ng-container *ngIf="form.controls['mdpConfirmation'].touched">
-                                <h5 *ngIf="form.errors">
+                                <h6 class="invalid-feedback" color="red" *ngIf="form.errors">
                                     {{ form.errors['twoPasswordCheck'] }}
-                                </h5>
+                                </h6>
                             </ng-container>
                         </div>
                         <button [disabled]="form.invalid" class="btn signup">Creation du compte</button>
@@ -61,32 +61,3 @@
 </div>
 
 
-<!-- <form [formGroup]="form" (ngSubmit)="Register()">
-    <label>Pdp :</label>
-    <input type="text" formControlName="pdp">
-    <label>Nom :</label>
-    <input type="text" formControlName="nom">
-    <label>Prenom :</label>
-    <input type="text" formControlName="prenom">
-    <label>Pseudo :</label>
-    <input type="text" formControlName="pseudo">
-    <label>Email :</label>
-    <input type="email" formControlName="email">
-    <ng-container *ngIf="form.controls['email'].touched">
-        <p *ngIf="form.controls['email'].errors">
-            {{ form.controls['email'].errors['name'] }}
-        </p>
-    </ng-container>
-    <label>Mdp :</label>
-    <input type="password" formControlName="mdp">
-    <label>Mdp Password :</label>
-    <input type="password" formControlName="mdpConfirmation">
-    <ng-container *ngIf="form.controls['mdpConfirmation'].touched">
-        <p *ngIf="form.errors">
-            {{ form.errors['twoPasswordCheck'] }}
-        </p>
-    </ng-container>
-   
-    <button [disabled]="form.invalid">Envoyer</button>
-
-</form> -->

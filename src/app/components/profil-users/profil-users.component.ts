@@ -51,6 +51,7 @@ messagePrive(){
 this.message = this.messagePriveForm.value.message ?? '';
 this._MessagePriveService.AddMessagePrive(this.currentUserId,this.id,this.message).subscribe(res => {
 this._Toastr.info("Message envoyé")});
+this.messagePriveForm.reset();
 this.openform=false;
 }
 

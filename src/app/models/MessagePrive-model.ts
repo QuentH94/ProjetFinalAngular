@@ -7,11 +7,12 @@ export interface MessagePrive{
 }
 
 export interface UserMessagePrive{
-    utilisateurId:number,
+    utilisateurId : number,
     pdp : string,
     message : string,
     pseudo : string,
     heure : Date,
-    connecte : boolean,
+    expediteur : number,
+    destinataire : number,
 
 }
